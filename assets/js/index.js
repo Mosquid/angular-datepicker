@@ -9,13 +9,13 @@
   ])
   .controller('TestController', ['$scope', '$interval', function TestController($scope, $interval) {
     var that = this;
+    $scope.marked = []
+
+    for (var i = 1; i < 4; i++) {
+	    $scope.marked.push(new Date(2017, 3, i).getTime())
+	}
 
     that.visibility = true;
 
-    $interval(function setInterval() {
-      //toggle manually everytime
-      that.visibility = !that.visibility;
-      window.console.info('Toggling datepicker with interval of 3.5 seconds');
-    }, 3500);
   }]);
 }(angular));

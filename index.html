@@ -19,7 +19,7 @@
   <div class="separator50"></div>
   <div class="col6 offset-left2">
     <div class="col3">
-      <div datepicker datepicker-class="test-custom-class" date-min-limit="2016/02/28" date-max-limit="2016/03/03" date-typer="true">
+      <div datepicker marked-dates="marked" datepicker-class="test-custom-class" date-typer="true">
         <input ng-model="date1" type="text" class="angular-datepicker-input"/>
       </div>
       Date 1 is: {{date1}}
@@ -40,12 +40,6 @@
     </div>
     Date 2 is: {{date2}}
     <input ng-model="date4" type="text" class="angular-datepicker-input"/>
-  </div>
-  <div class="col3">
-    <datepicker datepicker-show="{{ctrl.visibility}}">
-      <input ng-model="date3" type="text" class="angular-datepicker-input"/>
-    </datepicker>
-    Date 3 is: {{date3}}
   </div>
 </div>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
