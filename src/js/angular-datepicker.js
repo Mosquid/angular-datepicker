@@ -337,7 +337,27 @@
             if ($scope.isSelectableMinDate($scope.year + '/' + $scope.monthNumber + '/' + $scope.day) &&
                 $scope.isSelectableMaxDate($scope.year + '/' + $scope.monthNumber + '/' + $scope.day)) {
 
-              var modelDate = new Date($scope.year + '/' + $scope.monthNumber + '/' + $scope.day);
+              var tempVal = '',
+                c = 0,
+                i,
+                modelDate,
+                formatted;
+              
+              if ($scope.multipleSelection) {                
+                for (i in $scope.multi) {
+                  if (c > 0) {
+                    tempVal += ', ';
+                  }
+                  formatted = $scope.multi[i].getDate() + '/' + $scope.multi[i].getMonth() + '/' + $scope.multi[i].getFullYear();
+                  tempVal += formatted;
+                  c = c + 1;
+                }
+
+                thisInput.val(tempVal);
+                return false;
+              }
+
+              modelDate = new Date($scope.year + '/' + $scope.monthNumber + '/' + $scope.day);
 
               if (attr.dateFormat) {
 
@@ -616,8 +636,24 @@
           }
         };
 
-        $scope.setDatepickerDay = function setDatepickerDay(day) {
+        $scope.addToMultiple = function addToMultiple() {
+          var selected = new Date($scope.year + '/' + $scope.monthNumber + '/' + $scope.day),
+            selectedTime = selected.getTime();
+          
+          if (!$scope.multi) {
+            $scope.multi = {};
+          }
 
+          if ($scope.multi.hasOwnProperty(selectedTime)) {
+            delete $scope.multi[selectedTime];
+          } else {
+            $scope.multi[selectedTime] = selected;
+          }
+          
+          setInputValue();
+        };
+
+        $scope.setDatepickerDay = function setDatepickerDay(day) {
           if ($scope.isSelectableDate($scope.monthNumber, $scope.year, day) &&
               $scope.isSelectableMaxDate($scope.year + '/' + $scope.monthNumber + '/' + day) &&
               $scope.isSelectableMinDate($scope.year + '/' + $scope.monthNumber + '/' + day)) {
@@ -626,6 +662,10 @@
             $scope.selectedDay = $scope.day;
             $scope.selectedMonth = $scope.monthNumber;
             $scope.selectedYear = $scope.year;
+
+            if ($scope.multipleSelection) {
+              return $scope.addToMultiple();
+            }
 
             setInputValue();
 
@@ -755,7 +795,7 @@
           }
 
           var time = new Date(year, monthNumber, day).getTime();
-          
+
           if ($scope.markedDates.indexOf(time) < 0) {
             return false;
           }
@@ -962,6 +1002,7 @@
           'dateDisabledDates': '@',
           'dateSetHidden': '@',
           'dateTyper': '@',
+          'multipleSelection': '@',
           'markedDates': '=?',
           'dateWeekStartDay': '@',
           'datepickerAppendTo': '@',

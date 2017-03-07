@@ -11,7 +11,7 @@
     var that = this;
     $scope.marked = []
 
-    for (var i = 1; i < 4; i++) {
+    for (var i = 1; i < 10; i++) {
 	    $scope.marked.push(new Date(2017, 3, i).getTime())
 	}
 
