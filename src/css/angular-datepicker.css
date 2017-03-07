@@ -3,6 +3,7 @@ datepicker a, [datepicker] a, .datepicker a{
   text-decoration:none;
 }
 .marked {color: #fff; background: #000;}
+.in-custom-range {background: #666;}
 datepicker a:hover, [datepicker] a:hover, .datepicker a:hover{
   text-decoration:none;
 }
